@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+
+  localstack:
+    image: localstack/localstack:2.0.0
+    ports:
+      - "4566:4566" # LocalStack Edge Proxy
+      # - "4572:4572" # s3
+      # - '8055:8080' # Localstack's web UI
+    environment:
+      - SERVICES=s3
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+      - AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_DEFAULT_OUTPUT=json
+      - DEBUG=1
+      # - EAGER_SERVICE_LOADING=1
+    volumes:
+      - ./localstack/data:/tmp/localstack/data
+      - /var/run/docker.sock:/var/run/docker.sock
